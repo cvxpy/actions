@@ -16,7 +16,7 @@ jobs:
           python-version: 3.11
       - uses: actions/checkout@v2
         with:
-          name: cvxpy/cvxpy
+          repository: cvxpy/cvxpy
 
       - name: Install cvxpy dependencies
         run: |
