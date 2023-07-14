@@ -1,0 +1,22 @@
+name: test_pre_release_dependencies
+
+on:
+    schedule:
+        - cron: "0 4 * * 3"
+        # At 04:00 on Wednesday.
+        # Random the time of day to avoid overloaded CI servers
+    workflow_dispatch:
+
+jobs:
+  test_pre_release_dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - uses: actions/checkout@v2
+      - name: Install cvxpy dependencies
+        run: |
+          pip install . --pre
+          pip install pytest
+          pytest
