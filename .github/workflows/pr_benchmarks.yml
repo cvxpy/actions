@@ -12,7 +12,7 @@ jobs:
           python-version: 3.8
     
       - name: Checkout cvxpy
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -21,7 +21,7 @@ jobs:
           pip install .
 
       - name: Checkout benchmark
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: cvxpy/benchmarks
           ref: main
