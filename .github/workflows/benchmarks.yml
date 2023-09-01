@@ -49,7 +49,7 @@ jobs:
           mv docs pages/
       
       - name: Deploy HTML and Results Artifacts
-        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           folder: pages/
           repository-name: cvxpy/benchmarks
