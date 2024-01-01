@@ -48,7 +48,7 @@ jobs:
           echo $PR_NUMBER > ./benchmark/comment_log/pr_number
 
       - name: Upload the artifact folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: comment_log
           path: benchmark/comment_log/
