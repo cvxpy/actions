@@ -36,16 +36,15 @@ jobs:
 
       - id: get-comment-body
         run: |
-          body="$(cat asv_compare.log)"
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}" 
-          echo "::set-output name=body::$body"
+          {
+            echo 'body<<EOF'
+            cat asv_compare.log
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
 
       - id: get-pr-number
         run: |
-          number="$(cat pr_number)"
-          echo "::set-output name=number::$number"
+          echo "number=$(cat pr_number)" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v4
