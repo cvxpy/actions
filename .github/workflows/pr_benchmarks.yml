@@ -7,12 +7,12 @@ jobs:
   pr_benchmarks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.13
     
       - name: Checkout cvxpy
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -21,7 +21,7 @@ jobs:
           pip install .
 
       - name: Checkout benchmark
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: cvxpy/benchmarks
           ref: main
@@ -49,7 +49,7 @@ jobs:
           echo $PR_NUMBER > ./benchmark/comment_log/pr_number
 
       - name: Upload the artifact folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: comment_log
           path: benchmark/comment_log/
