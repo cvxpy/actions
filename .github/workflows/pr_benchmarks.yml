@@ -34,11 +34,21 @@ jobs:
           pip install clarabel scs osqp
       
       - name: Run benchmarks
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
           cd benchmark/
           asv machine --config asv_pr.conf.json --yes
-          asv continuous origin/${{github.base_ref}} HEAD --config asv_pr.conf.json --quick --strict
-          asv compare origin/${{github.base_ref}} HEAD --config asv_pr.conf.json --split --sort ratio | tee -a asv_compare.log
+          # Drop --quick: it took a single, no-warmup sample per benchmark and compared
+          # the two raw numbers against --factor, so any >10% runner blip tripped --strict.
+          # Without it asv takes several warm samples in separate processes and compares
+          # medians with a significance test. -a number=1 keeps each sample one fresh
+          # compile: get_problem_data caches on the Problem, so a second timed call would
+          # measure the cache rather than the compilation.
+          asv continuous "origin/$BASE_REF" HEAD --config asv_pr.conf.json \
+            -a number=1 --interleave-rounds --factor 1.25 --strict
+          asv compare "origin/$BASE_REF" HEAD --config asv_pr.conf.json \
+            --factor 1.25 --split --sort ratio | tee -a asv_compare.log
           mkdir comment_log
           mv asv_compare.log comment_log/
       
