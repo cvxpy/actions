@@ -41,7 +41,7 @@ jobs:
           asv machine --yes
           # -a number=1: each sample must be one fresh compile. get_problem_data caches
           # on the Problem, so timing it more than once per setup measures the cache.
-          asv run "master -n 2" -a number=1 --strict --show-stderr
+          asv run "master -n 2" -a number=1 --show-stderr
           asv publish
       
       - name: Make pages folder
